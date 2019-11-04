@@ -35,7 +35,11 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/antd-ui', '@/plugins/config', '@/plugins/global'],
+  plugins: [
+    '@/plugins/antd-ui',
+    '@/plugins/config',
+    { src: '@/plugins/perfect-scrollbar', mode: 'client' }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -57,6 +61,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/dotenv',
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
     '@nuxtjs/pwa',
     [
       'nuxt-env',
@@ -72,6 +77,31 @@ export default {
   /*
    ** Nuxt.js auth
    */
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: `${process.env.API_ENDPOINT + '/authentication'}`,
+            method: 'post',
+            propertyName: 'accessToken'
+          },
+          // logout: { url: '/api/auth/logout', method: 'post' },
+          user: {
+            url: `${process.env.API_ENDPOINT + '/users?action=getme'}`,
+            method: 'get',
+            propertyName: false
+          }
+        }
+        // tokenRequired: true,
+        // tokenType: 'bearer'
+      }
+    },
+    token: {
+      prefix: '_token.'
+    }
+  },
+
   router: {
     // middleware: ['authenticate']
   },

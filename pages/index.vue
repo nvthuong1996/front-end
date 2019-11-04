@@ -4,6 +4,7 @@
     <a-button type="primary" @click="commit">commit</a-button>
     <a-button type="primary" @click="login">login</a-button>
     <a-button type="primary" @click="test">test</a-button>
+    <a-button type="primary" @click="$auth.logout()">logout</a-button>
   </div>
 </template>
 
@@ -16,28 +17,37 @@ export default {
       clone: {}
     }
   },
-  asyncData(context) {
-    debugger
-    console.log(context)
-  },
+  asyncData(context) {},
   methods: {
     ...mapActions('auth', ['authenticate']),
     ...mapActions('users', ['create']),
-    async login() {
+    login() {
       console.log(process.env)
-      const credentials = { email: 'nvthuong1996@gmail.com', password: '123' }
-      await this.authenticate({ ...credentials, strategy: 'local' })
+      const credentials = {
+        email: 'nvthuong1996@gmail.com',
+        password: '123',
+        strategy: 'local'
+      }
+      // await this.authenticate({ ...credentials, strategy: 'local' })
+      this.$auth
+        .loginWith('local', {
+          data: credentials
+        })
+        .then((data) => {
+          debugger
+        })
+        .catch((ex) => {
+          debugger
+        })
 
       // this.isLoggingIn = false
       // this.$router.push('/secret')
     },
-    test() {
-      debugger
+    async test() {
       // const t = await feathersClient.reAuthenticate()
       // console.log(t)
       // console.log(feathersClient)
       // const { User } = this.$FeathersVuex.api
-
       // const t = await User.find({ query: { id: 1 } })
       // this.clone = t.data[0].clone()
       // debugger
