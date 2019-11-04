@@ -39,6 +39,7 @@ export default {
     '@/plugins/antd-ui',
     '@/plugins/config',
     '@/plugins/auth-server',
+    '@/plugins/feathers-vuex',
     { src: '@/plugins/perfect-scrollbar', mode: 'client' },
     { src: '@/plugins/app-loaded', mode: 'client' }
   ],

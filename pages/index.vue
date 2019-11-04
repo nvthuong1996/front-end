@@ -53,7 +53,7 @@ export default {
       // const t = await feathersClient.reAuthenticate()
       // console.log(t)
       // console.log(feathersClient)
-      const { User } = models.api
+      const { User } = this.$FeathersVuex.api
       const t = await User.find({ query: { id: 1 } })
       debugger
       this.clone = t.data[0].clone()
