@@ -4,7 +4,9 @@ import socketio from '@feathersjs/socketio-client'
 import authClient from '@feathersjs/authentication-client'
 import io from 'socket.io-client'
 import feathersVuex from 'feathers-vuex' // or '@/libs/feathers-vuex' if you're copying feathers-vuex as mentioned earlier.
+// eslint-disable-next-line no-unused-vars
 import { CookieStorage } from 'cookie-storage'
+import MemoryStorage from 'memorystorage'
 
 // Setup the Feathers client
 const host = `${process.env.API_ENDPOINT}` // or set a string here, directly
@@ -13,7 +15,8 @@ const feathersClient = feathers()
   .configure(socketio(socket))
   .configure(
     authClient({
-      storage: new CookieStorage()
+      // storage: new CookieStorage()
+      storage: new MemoryStorage()
       // storage: window.localStorage,
       // storageKey: 'auth._token.local'
     })

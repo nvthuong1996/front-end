@@ -10,6 +10,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { models } from 'feathers-vuex'
 
 export default {
   data() {
@@ -17,7 +18,12 @@ export default {
       clone: {}
     }
   },
-  asyncData(context) {},
+  async asyncData(context) {
+    const { User } = models.api
+    const t = await User.find({ query: { id: 1 } })
+    console.log(t)
+    debugger
+  },
   methods: {
     ...mapActions('auth', ['authenticate']),
     ...mapActions('users', ['create']),
@@ -47,10 +53,11 @@ export default {
       // const t = await feathersClient.reAuthenticate()
       // console.log(t)
       // console.log(feathersClient)
-      // const { User } = this.$FeathersVuex.api
-      // const t = await User.find({ query: { id: 1 } })
-      // this.clone = t.data[0].clone()
-      // debugger
+      const { User } = models.api
+      const t = await User.find({ query: { id: 1 } })
+      debugger
+      this.clone = t.data[0].clone()
+      debugger
     },
     scrollHandle() {
       debugger

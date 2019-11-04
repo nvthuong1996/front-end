@@ -38,7 +38,9 @@ export default {
   plugins: [
     '@/plugins/antd-ui',
     '@/plugins/config',
-    { src: '@/plugins/perfect-scrollbar', mode: 'client' }
+    '@/plugins/auth-server',
+    { src: '@/plugins/perfect-scrollbar', mode: 'client' },
+    { src: '@/plugins/app-loaded', mode: 'client' }
   ],
   /*
    ** Nuxt.js dev-modules
