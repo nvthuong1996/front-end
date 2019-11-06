@@ -1,4 +1,5 @@
-import { socket } from './feathers/feathers-client'
+// import { socket } from './feathers/feathers-client'
+import test from './test'
 require('dotenv').config()
 export default {
   mode: 'universal',
@@ -63,8 +64,8 @@ export default {
   hooks: {
     render: {
       routeDone(Builder) {
-        console.log(socket.id)
-        socket.disconnect()
+        test.test++
+        console.log('TEST........', test)
       }
     }
   },
