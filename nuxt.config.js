@@ -58,6 +58,15 @@ export default {
     // host: process.NUXT_HOST // default: localhost
   },
   /*
+   ** Nuxt.js hook
+   */
+  hooks: {
+    render: {
+      routeDone(Builder) {}
+    }
+  },
+
+  /*
    ** Nuxt.js modules
    */
   modules: [
@@ -71,7 +80,8 @@ export default {
       {
         keys: Object.keys(process.env)
       }
-    ]
+    ],
+    'cookie-universal-nuxt'
   ],
   /*
    ** Nuxt.js env
@@ -91,22 +101,25 @@ export default {
           },
           // logout: { url: '/api/auth/logout', method: 'post' },
           user: {
-            url: `${process.env.API_ENDPOINT + '/users?action=getme'}`,
+            url: `${process.env.API_ENDPOINT + '/users/me'}`,
             method: 'get',
             propertyName: false
           }
         }
         // tokenRequired: true,
         // tokenType: 'bearer'
+      },
+      redirect: {
+        login: '/login',
+        logout: '/',
+        callback: '/login',
+        home: '/'
       }
-    },
-    token: {
-      prefix: '_token.'
     }
   },
 
   router: {
-    // middleware: ['authenticate']
+    middleware: ['auth']
   },
   /*
    ** Axios module configuration

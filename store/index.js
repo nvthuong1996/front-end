@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { initAuth } from 'feathers-vuex'
 
 const requireModule = require.context('../feathers/services', false, /.js$/)
@@ -8,12 +9,5 @@ const servicePlugins = requireModule
 export const plugins = [...servicePlugins]
 
 export const actions = {
-  nuxtServerInit({ commit }, { req }) {
-    return initAuth({
-      commit,
-      req,
-      moduleName: 'auth',
-      cookieName: 'feathers-jwt'
-    })
-  }
+  nuxtServerInit({ commit }, { req }) {}
 }

@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <a-input v-model="clone.facebookId"></a-input>
+    <a-input v-model="email"></a-input>
+    <a-input v-model="password"></a-input>
+    <a-button type="primary" @click="login">login</a-button>
+    <a-input v-model="clone.email"></a-input>
     <a-button type="primary" @click="commit">commit</a-button>
     <a-button type="primary" @click="login">login</a-button>
     <a-button type="primary" @click="test">test</a-button>
@@ -10,18 +13,31 @@
 
 <script>
 import { mapActions } from 'vuex'
+// eslint-disable-next-line no-unused-vars
 import { models } from 'feathers-vuex'
 
 export default {
   data() {
     return {
-      clone: {}
+      clone: {},
+      email: null,
+      password: null
     }
   },
   async asyncData(context) {
     const { User } = models.api
-    const t = await User.find({ query: { id: 1 } })
-    console.log(t)
+    const t = await User.get(context.store.state.auth.user.id)
+    debugger
+    return {
+      clone: t.clone()
+    }
+    // console.log(t)
+    // debugger
+  },
+  created() {
+    console.log(this)
+    this.clone.email = 'test@gmail.com'
+    this.clone.commit()
     debugger
   },
   methods: {
@@ -30,8 +46,8 @@ export default {
     login() {
       console.log(process.env)
       const credentials = {
-        email: 'nvthuong1996@gmail.com',
-        password: '123',
+        email: this.email,
+        password: this.password,
         strategy: 'local'
       }
       // await this.authenticate({ ...credentials, strategy: 'local' })
