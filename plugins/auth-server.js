@@ -7,6 +7,5 @@ export default ({app}, inject) => {
   if(token){
     feathersClient.authentication.setAccessToken(token.replace('Bearer ',''))
     feathersClient.reAuthenticate()
-    debugger
   }
 }

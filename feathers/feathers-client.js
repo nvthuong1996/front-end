@@ -8,58 +8,28 @@ import feathersVuex from 'feathers-vuex' // or '@/libs/feathers-vuex' if you're 
 import { CookieStorage } from 'cookie-storage'
 // eslint-disable-next-line no-unused-vars
 import MemoryStorage from 'memorystorage'
+// eslint-disable-next-line no-unused-vars
 import axios from 'axios'
 // eslint-disable-next-line no-unused-vars
 const rest = require('@feathersjs/rest-client')
 
 // Setup the Feathers client
 const host = `${process.env.API_ENDPOINT}` // or set a string here, directly
-// eslint-disable-next-line import/no-mutable-exports
-let feathersClient = null
-const storage = new MemoryStorage()
-console.log('-----------------', process.client)
-if (process.client) {
-  debugger
-  const socket = io(host, { transports: ['websocket'] })
-  feathersClient = feathers()
-    .configure(socketio(socket))
-    .configure(
-      authClient({
-        // storage: new CookieStorage()
-        storage
-        // storage: window.localStorage
-        // storageKey: 'auth._token.local'
-      })
-    )
-} else {
-  axios.interceptors.request.use(
-    function(config) {
-      // Do something before request is sent
-      const token = storage.getItem('feathers-jwt')
-      config.headers.common.Authorization = 'Bearer ' + token
-      config.headers.common['Content-Type'] = 'application/json'
-      // console.log(storage)
-      // debugger
-      return config
-    },
-    function(error) {
-      // Do something with request error
-      return Promise.reject(error)
-    }
-  )
-  const restClient = rest(host)
-  feathersClient = feathers()
-    .configure(restClient.fetch(axios))
-    .configure(
-      authClient({
-        // storage: new CookieStorage()
-        storage
-        // storage: window.localStorage
-        // storageKey: 'auth._token.local'
-      })
-    )
-}
 
+console.log('chay lai')
+
+const storage = new MemoryStorage()
+const socket = io(host, { transports: ['websocket'] })
+const feathersClient = feathers()
+  .configure(socketio(socket))
+  .configure(
+    authClient({
+      // storage: new CookieStorage()
+      storage
+      // storage: window.localStorage
+      // storageKey: 'auth._token.local'
+    })
+  )
 export default feathersClient
 
 // Setup feathers-vuex
@@ -82,5 +52,6 @@ export {
   BaseModel,
   models,
   clients,
-  FeathersVuex
+  FeathersVuex,
+  socket
 }
