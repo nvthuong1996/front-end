@@ -29,7 +29,7 @@
     "dotenv": "^8.2.0",
     "feathers-vuex": "^2.0.5",
     "memorystorage": "^0.11.0",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "nuxt": "^2.0.0",
     "nuxt-env": "^0.1.0",
     "request": "^2.88.0",
